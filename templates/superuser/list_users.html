@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block head_content %}
+<title>@{{ user.username }} | Portal</title>
+{% endblock %}
+
+{% block container %}
+<div class="container col-12" style="margin-top: 8em;">
+  <h4>Lista de administradores</h4>
+  <ul class="list-group">
+    {% for profile in admins %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      {{ profile.user.first_name }} {{ profile.user.last_name }}
+      <span class="badge badge-success badge-pill">
+        {{ profile.user.email }}
+      </span>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

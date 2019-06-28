@@ -1,0 +1,53 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg fixed-top" id="main-navbar">
+    <div class="container">
+
+        <a class="navbar-brand pr-5" style="border-right: 1px solid #efefef;" href="/">
+            <img src="{% static "img/Logo_U.T.P.png" %}" height="45" class="d-inline-block align-top"/>
+        </a>
+
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item">
+                    <a href="/users/{{ request.user.username }}/">
+                        {% if request.user.profile.picture %}
+                            <img src="{{ request.user.profile.picture.url }}" height="35" class="d-inline-block align-top rounded-circle"/>
+                        {% else%}
+                            <img src="{% static 'img/default-profile.png' %}" height="35" class="d-inline-block align-top rounded-circle"/>
+                        {% endif %}
+                    </a>
+                </li>
+
+                {% if request.user.profile.type_user == 'admin' or request.user.profile.type_user == 'superadmin' %}
+                <li class="nav-item nav-icon">
+                    <a href="/posts/new/">
+                        <i class="fas fa-plus"></i>
+                    </a>
+                </li>
+                {% endif %}
+                {% if request.user.profile.type_user == 'admin' or request.user.profile.type_user == 'superadmin' %}
+                <li class="nav-item nav-icon">
+                    <a href="/users/admins/list/">
+                        <i class="fas fa-user-shield"></i>
+                    </a>
+                </li>
+                {% endif %}
+                {% if request.user.profile.type_user == 'superadmin' %}
+                <li class="nav-item nav-icon">
+                    <a href="/users/superuser/list/">
+                        <i class="fas fa-users-cog"></i>
+                    </a>
+                </li>
+                {% endif %}
+
+                <li class="nav-item nav-icon">
+                    <a href="/users/logout/">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>

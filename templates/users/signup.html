@@ -1,0 +1,25 @@
+{% extends "users/base.html" %}
+
+{% block head_content %}
+<title>Platzigram sign up</title>
+{% endblock %}
+
+{% block container %}
+    <form method="POST" id="signupform">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-primary btn-block mt-5" type="submit">Registrarme!</button>
+    </form>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+  $(document).ready(() => {
+    var $inputs = $("#signupform input");
+    $inputs.each(indexInput => {
+      var $input = $($inputs[indexInput]);
+      $input.addClass('form-control');
+    })
+  });
+</script>
+{% endblock %}

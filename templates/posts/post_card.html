@@ -1,0 +1,57 @@
+{% load is_liked_post %}
+
+<div class="col-sm-12 col-md-8 offset-md-2 mt-5 p-0 post-container">
+    <div class="media pt-3 pl-3 pb-1">
+        <a href="/users/{{ post.user.username }}/">
+            <img class="mr-3 rounded-circle" height="35" src="{{ post.profile.picture.url }}" alt="{{ post.user.get_full_name }}">
+        </a>
+        <div class="media-body">
+            <a href="/users/{{ post.user.username }}/"><p style="color: black;margin-top: 5px;">{{ post.user.get_full_name  }}</p></a>
+        </div>
+        {% if post.profile == request.user.profile or request.user.profile.type_user == 'admin' or request.user.profile.type_user == 'superadmin' %}
+        <div class="">
+          <p class="pr-3"><a href="#" role="button" onclick="deletePostModal('{{ post.pk }}')" style="color:black;"><i class="fas fa-trash"></i></a></p>
+        </div>
+        {% endif %}
+    </div>
+
+    <img style="width: 100%;" src="{{ post.photo.url }}" alt="{{ post.title }}">
+
+    <p class="mt-1 ml-2">
+        <a href="/posts/like/{{ post.pk }}/">
+            <i class="fas fa-heart" style="color: {% is_liked_post post request.user.profile %}; font-size: 20px;"></i>
+        </a> {{ post.likes }} likes
+    </p>
+    <p class="ml-2 mt-0 mb-2">
+        <b>{{ post.title }}</b> - <small>{{ post.created }}</small>
+    </p>
+</div>
+
+<div class="modal fade" id="deletePostModal" tabindex="-1" role="dialog" aria-labelledby="deletePostModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deletePostModalLabel">Eliminar post</h5>
+      </div>
+      <div class="modal-body">
+        <p>¿Desea eliminar el post seleccionado?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button id="deletePostButton" onclick="deletePost()" type="button" class="btn btn-danger">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  function deletePost(id_post) {
+    window.location = `/posts/delete/${id_post}/`
+  }
+
+  function deletePostModal(id_post) {
+    $("#deletePostButton").attr("onclick", `deletePost(${id_post})`);
+    $("#deletePostModal").modal('show');
+  }
+</script>

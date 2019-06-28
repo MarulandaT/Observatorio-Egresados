@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block head_content %}
+<title>@{{ user.username }} | Portal</title>
+{% endblock %}
+
+{% block container %}
+<div class="container col-12" style="margin-top: 8em;">
+  <h4>Lista de usuarios activos e inactivos</h4>
+  <ul class="list-group">
+    {% for profile in pending_users %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      @{{ profile.user }}
+      <span class="badge badge-danger badge-pill" onclick="authorizeUser({{ profile.pk }})">No autorizado</span>
+    </li>
+    {% endfor %}
+    {% for profile in authorized_users %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      @{{ profile.user }}
+      <span class="badge badge-success badge-pill" onclick="deauthorizeUser({{ profile.pk }})">Autorizado</span>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="modal fade" id="modalAuthorizeUser" tabindex="-1" role="dialog" aria-labelledby="modalAuthorizeUserLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalAuthorizeUserLabel">Autorizar acceso</h5>
+      </div>
+      <div class="modal-body">
+        ¿Deseas autorizar el acceso a este usuario?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" onclick="$('#submit-auth-btn').trigger('click')" class="btn btn-success">Autorizar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalDeauthorizeUser" tabindex="-1" role="dialog" aria-labelledby="modalDeauthorizeUserLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalDeauthorizeUserLabel">Remover acceso</h5>
+      </div>
+      <div class="modal-body">
+        ¿Deseas remover el acceso de este usuario?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" onclick="$('#submit-noauth-btn').trigger('click')" class="btn btn-danger">Remover</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form method="post" hidden>{% csrf_token %}
+  <input type="text" id="id_profile-auth" name="id_profile">
+  <input type="submit" id="submit-auth-btn" name="authorize_user">
+</form>
+<form method="post" hidden>{% csrf_token %}
+  <input type="text" id="id_profile-noauth" name="id_profile">
+  <input type="submit" id="submit-noauth-btn" name="deauthorize_user">
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+  function authorizeUser(id_profile) {
+    $("#id_profile-auth").val(id_profile);
+    $("#modalAuthorizeUser").modal('show');
+  }
+  function deauthorizeUser(id_profile) {
+    $("#id_profile-noauth").val(id_profile);
+    $("#modalDeauthorizeUser").modal('show');
+  }
+</script>
+{% endblock %}

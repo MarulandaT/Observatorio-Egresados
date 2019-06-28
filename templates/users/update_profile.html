@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head_content %}
+<title>@{{ request.user.username }} | Update profile</title>
+{% endblock %}
+
+{% block container %}
+
+<div class="container">
+
+    <div class="row justify-content-md-center">
+        <div class="col-6 p-4" id="profile-box">
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="media">
+                    {% if profile.picture %}
+                        <img src="{{ profile.picture.url }}" class="rounded-circle" height="50" />
+                    {% else%}
+                        <img src="{% static 'img/default-profile.png' %}" class="rounded-circle" height="50" />
+                    {% endif %}
+
+                    <div class="media-body">
+                        <h5 class="ml-4">@{{ user.username }} | {{ user.get_full_name }}</h5>
+                        <p class="ml-4"><input type="file" name="picture"></p>
+                    </div>
+                </div>
+
+                {% for error in form.picture.errors %}
+                <div class="alert alert-danger">
+                    <b>Picture: </b>{{ error }}
+                </div>
+                {% endfor %}
+
+                <hr><br>
+
+                {# city field #}
+                <div class="form-group">
+                    <label>Ciudad</label>
+                    <input
+                        class="form-control {% if form.city.errors %}is-invalid{% endif %}"
+                        type="text"
+                        name="city"
+                        placeholder="Ciudad"
+                        value="{% if form.errors %}{{ form.city.value }}{% else %}{{ profile.city }}{% endif %}"
+                    />
+                    <div class="invalid-feedback">
+                        {% for error in form.city.errors %}
+                            {{ error }}
+                        {% endfor%}
+                    </div>
+                </div>
+
+                {# interests field #}
+                <div class="form-group">
+                    <label>Intereses</label>
+                    <textarea
+                        class="form-control {% if form.interests.errors %}is-invalid{% endif %}"
+                        name="interests"
+                    >{% if form.errors %}{{ form.interests.value }}{% else %}{{ profile.interests }}{% endif %}</textarea>
+
+                    <div class="invalid-feedback">
+                        {% for error in form.interests.errors %}
+                            {{ error }}
+                        {% endfor%}
+                    </div>
+                </div>
+
+                {# Phone number field #}
+                <div class="form-group">
+                    <label>Numero celular</label>
+                    <input
+                        class="form-control {% if form.phone_number.errors %}is-invalid{% endif %}"
+                        type="text"
+                        name="phone_number"
+                        placeholder="Numero celular"
+                        value="{% if form.errors %}{{ form.phone_number.value }}{% else %}{{ profile.phone_number }}{% endif %}"
+                    />
+                    <div class="invalid-feedback">
+                        {% for error in form.phone_number.errors %}
+                            {{ error }}
+                        {% endfor%}
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block mt-5">Actualizar perfil</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
