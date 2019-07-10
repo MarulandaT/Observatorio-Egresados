@@ -12,26 +12,32 @@ class SignupForm(forms.Form):
     """Sign up form."""
 
     username = forms.CharField(
-        min_length=4,
-        max_length=50
+        max_length=50,
+        widget=forms.TextInput(attrs={"placeholder":"Nombre de Usuario"})
     )
 
     password = forms.CharField(
         max_length=70,
-        widget=forms.PasswordInput()
+        widget=forms.PasswordInput(attrs={"placeholder":"Contraseña"})
     )
     password_confirmation = forms.CharField(
         max_length=70,
-        widget=forms.PasswordInput()
+        widget=forms.PasswordInput(attrs={"placeholder":"Confirmar Contraseña"})
     )
 
-    first_name = forms.CharField(min_length=2, max_length=50)
-    last_name = forms.CharField(min_length=2, max_length=50)
+    first_name = forms.CharField(min_length=2, 
+                                max_length=50, 
+                                widget=forms.TextInput(attrs={"placeholder":"Nombre"})
+                                )
+    last_name = forms.CharField(min_length=2, 
+                                max_length=50,
+                                widget=forms.TextInput(attrs={"placeholder":"Apellido"})
+                                )
 
     email = forms.CharField(
         min_length=6,
         max_length=70,
-        widget=forms.EmailInput()
+        widget=forms.EmailInput(attrs={"placeholder":"Correo"})
     )
 
     def clean_username(self):
@@ -62,6 +68,7 @@ class SignupForm(forms.Form):
         user = User.objects.create_user(**data)
         profile = Profile(user=user)
         profile.save()
+
 
 
 class ProfileForm(forms.Form):
