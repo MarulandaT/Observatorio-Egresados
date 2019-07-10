@@ -11,25 +11,25 @@
     {% endif%}	
 
 <section class="login">
-          <div class="container">
-            <div class="banner-content">
-              <h1><i class="fa fa-smile"></i> Egresados</h1>
-              <form method="POST" class="form-signin">
-                {% csrf_token %}
-                <h3 class="form-signin-heading">Iniciar Sesión</h3>
-                <div class="form-group">
-                  <input class="form-control" type="text" placeholder="Usuario" name="username" />
-                </div>
-                <div class="form-group">
-                  <input class="form-control" type="password" placeholder="Contraseña" name="password"/>
-                </div>
-                <button class="kafe-btn kafe-btn-mint btn-block" type="submit">Iniciar sesión</button>
-                <br>
-                <a class="btn btn-dark " href="photo_register.html" role="button">Don't have an account yet? Register Here.</a>
-                <a class="btn btn-dark " href="photo_register.html" role="button">Forgot your password?</a>
-              </form>
-            </div>
-          </div>
+  <div class="container">
+    <div class="banner-content">
+      <h1><i class="fa fa-smile"></i> Egresados</h1>
+      <form method="POST" class="form-signin">
+        {% csrf_token %}
+        <h3 class="form-signin-heading">Iniciar Sesión</h3>
+        <div class="form-group">
+          <input class="form-control" type="text" placeholder="Usuario" name="username" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="password" placeholder="Contraseña" name="password"/>
+        </div>
+        <button class="kafe-btn kafe-btn-mint btn-block" type="submit">Iniciar sesión</button>
+        <br>
+        <a class="btn btn-dark " href="photo_register.html" role="button">¿Aún no tienes una cuenta? Registrarse aquí.</a>
+        <a class="btn btn-dark " href="photo_register.html" role="button">¿Olvidaste tu contraseña?</a>
+      </form>
+    </div>
+  </div>
  </section>       
 
 
