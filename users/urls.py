@@ -13,7 +13,7 @@ from django.contrib.auth.views import LoginView, password_reset, password_reset_
 urlpatterns = [
 
     # Management
-    path('login/',view=views.login_view),
+    path('login/',view=views.login_view ),
     path('logout/',view=views.logout_view),
     path('signup/',view=views.SignupView.as_view()),
     re_path(r'^password_reset/$', password_reset,{'email_template_name':'users/password_reset_email.html',
