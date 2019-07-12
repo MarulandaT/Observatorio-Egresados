@@ -7,22 +7,32 @@
 
 {% block container %}
 
-<div class="container">
-
-    <div class="row justify-content-md-center">
-        <div class="col-6 p-4" id="profile-box">
+<section class="upload">
+      <div class="container">
+      
+       <div class="row">
+        <div class="col-lg-12">  
+        
+         <div class="box center">
 
             <form method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 {% csrf_token %}
 
-               {{ form.as_table }}
+               {{ form}}
                </div>
 
-                <button type="submit" class="btn btn-primary btn-block mt-5">Actualizar perfil</button>
+                <button type="submit" class=" kafe-btn kafe-btn-mint-small btn-block mt-5">Actualizar perfil</button>
             </form>
+       </div>
         </div>
-    </div>
-</div>
+        
+       </div><!--/ row-->   
+      
+       
+      </div><!--/ container -->
+    </section><!--/ newsfeed -->
+
+
 
 {% endblock %}

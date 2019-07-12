@@ -43,7 +43,6 @@ class SignupForm(forms.Form):
 
 
 
-
     def clean_username(self):
         """Username must be unique."""
         username = self.cleaned_data['username']
@@ -64,14 +63,20 @@ class SignupForm(forms.Form):
 
         return data
 
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("El email ya existe, prueba con otro")
+        return email
+
     def save(self):
         """Create user and profile."""
         data = self.cleaned_data
         data.pop('password_confirmation')
-
         user = User.objects.create_user(**data)
         profile.interests.add(*self.cleaned_data.get('interests'))
         profile = Profile(user=user)
+
         profile.save()
         
 
@@ -82,12 +87,12 @@ class ProfileForm(forms.ModelForm):
     """Profile form."""
     class Meta :
         model = Profile
-        exclude =  ('username','password','email','last_name','first_name', 'age','gender','dni_administrador','groups','city', 'authorized','type_user','user','confirmation_handling_sensitive_data')
-    interests = forms.ModelMultipleChoiceField( label = 'intereses',      
+        exclude =  ('username','password','email','last_name','first_name', 'age','gender','website','groups','city', 'authorized','type_user','user','confirmation_handling_sensitive_data')
+    interests = forms.ModelMultipleChoiceField( label = 'Intereses',      
         widget=forms.CheckboxSelectMultiple(),
         queryset=Subject.objects.all()
     )
-    website = forms.URLField(label = 'Sitio Web',max_length=200, required=True)
-    biography = forms.CharField(label = 'Biografia', max_length=500, required=False)
-    phone_number = forms.CharField(label = 'Telefono',max_length=20, required=False)
-    picture = forms.ImageField(label = 'Foto De Perfil',required=False)
+    biography = forms.CharField(label = 'Biografia', max_length=500, required=False,  widget=forms.TextInput(attrs={"class":"form-control"}))
+    phone_number = forms.CharField(label = 'Telefono',max_length=20, required=False, widget=forms.TextInput(attrs={"class":"form-control"}))
+    picture = forms.ImageField(label = 'Foto De Perfil',required=True)
+    dni_administrador = forms.CharField(label = 'Cédula',max_length=20, required=True, widget=forms.TextInput(attrs={"class":"form-control"}))

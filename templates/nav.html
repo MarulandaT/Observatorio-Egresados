@@ -72,14 +72,6 @@
         </div><!-- /.navbar-left -->
         <div class="navbar-right">                          
             <ul class="nav navbar-nav">
-                <li>
-                    <div class="search-dashboard">
-                        <form>
-                            <input placeholder="Search here" type="text">
-                            <button type="submit"><i class="fa fa-search"></i></button>
-                        </form>
-                    </div>                            
-                </li>
                 <li class="dropdown mega-avatar">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                         <span class="avatar w-32">
@@ -94,8 +86,6 @@
                         </span>
                     </a>
                     <div class="dropdown-menu w dropdown-menu-scale pull-right">
-                        <a class="dropdown-item" href="/posts/new/"><span>Nueva Noticia</span></a>
-                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/users/{{ request.user.username }}/"><span>Perfil</span></a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/users/logout/">Salir</a>
@@ -138,11 +128,41 @@
             </a>
         </div>
         {% endif %}
-        <div class="p-2 nav-icon-lg dark-black ">
+        {% if request.user.profile.type_user == 'egresado'  %}
+        <div class="p-2 nav-icon-lg {% if request.path == '/users/me/profile/'%} mint-green {% else %} dark-black {% endif %}">
+            <a class="nav-icon" href="/users/me/profile/"><em class="fas fa-edit"></em>
+                <span>Editar Perfil</span>
+            </a>
+        </div>
+        {% endif %}
+        {% if request.user.profile.type_user == 'egresado'  %}
+        <div class="p-2 nav-icon-lg   clean-black ">
+            <a class="nav-icon" href="#"><em class="fas fa-graduation-cap "></em>
+                <span>Egresados</span>
+            </a>
+        </div>
+        {% endif %}
+        {% if request.user.profile.type_user == 'egresado' or request.user.profile.type_user == 'admin'  %}
+        <div class="p-2 nav-icon-lg {% if request.path == '/users/...'%} mint-green {% else %} dark-black {% endif %}">
             <a class="nav-icon" href="/users/{{ request.user.username }}/"><em class="fa fa-user"></em>
                 <span>Perfil</span>
             </a>
         </div>
+        {% endif %}
+        {% if request.user.profile.type_user == 'egresado' or request.user.profile.type_user == 'admin'  %}
+        <div class="p-2 nav-icon-lg {% if request.path == '/users/logout/'%} mint-green {% else %} dark-black {% endif %}">
+            <a class="nav-icon" href="/users/logout/"><em class="fas fa-sign-out-alt"></em>
+                <span>Salir</span>
+            </a>
+        </div>
+        {% endif %}
+        {% if  request.user.profile.type_user == 'superadmin' %}
+        <div class="p-2 nav-icon-lg {% if request.path == '/users/me/profile/'%} mint-green {% else %} dark-black {% endif %}">
+            <a class="nav-icon" href="/users/{{ request.user.username }}/"><em class="fa fa-user"></em>
+                <span>Perfil</span>
+            </a>
+        </div>
+        {% endif %}
     </div>
 </section>  
 
