@@ -6,59 +6,66 @@
 
 {% block container %}
 
-    <div class="container">
+    <!--<div class="container">
         <div class="row justify-content-md-center">
-            <div class="col-6 pt-3 pb-3" id="profile-box">
+            <div class="col-6 pt-3 pb-3" id="profile-box">-->
+                <section class="upload">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box">
                 <h4 class="mb-4">Nueva publicacion</h4>
-
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-
                     <input type="hidden" name="user" value="{{ user.pk}}" />
                     <input type="hidden" name="profile" value="{{ profile.pk }}" />
-
                     {# Website field #}
                     <div class="form-group">
-                        <input
-                            class="form-control {% if form.title.errors %}is-invalid{% endif %}"
-                            type="text"
-                            name="title"
-                            placeholder="Titulo"
-                        >
+                        <input class="form-control {% if form.title.errors %}is-invalid{% endif %}" type="text" name="title" placeholder="Titulo">
                         <div class="invalid-feedback">
                             {% for error in form.title.errors %}{{ error }}{% endfor %}
                         </div>
                     </div>
-
                     {# Photo field #}
-                    <div class="form-group">
+                    <div class="box-footer clearfix ">
                         <label>Elige un archivo:</label>
-                        <input
-                            class="form-control {% if form.photo.errors %}is-invalid{% endif %}"
-                            type="file"
-                            name="photo"
-                            placeholder="Archivo"
-                        >
+                        <input class="form-control {% if form.photo.errors %}is-invalid{% endif %} no-border" type="file" name="photo" placeholder="Archivo">
                         <div class="invalid-feedback">
                             {% for error in form.photo.errors %}{{ error }}{% endfor %}
                         </div>
                     </div>
                     {# content field #}
                     <div class="form-group">
-                        <textarea
-                            class="form-control {% if form.content.errors %}is-invalid{% endif %}"
-                            name="content"
-                        >Escribe aquí el contenido
-                        </textarea>
+                        <textarea class="form-control {% if form.content.errors %}is-invalid{% endif %} no-border" rows="5" name="content" placeholder="Escribe aquí el contenido"></textarea>
                         <div class="invalid-feedback">
                             {% for error in form.content.errors %}{{ error }}{% endfor %}
                         </div>
                     </div>
-
-                    <button type="submit" class="btn btn-primary btn-block mt-5">Publicar!</button>
                 </form>
             </div>
         </div>
-    </div>
+    </div><!--/ container -->
+</section><!--/ newsfeed -->
+
+<section class="upload">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="box">
+                    <form>
+                        <textarea class="form-control no-border" rows="3" placeholder="Type something..."></textarea>
+                    </form>
+                    <div class="box-footer clearfix">
+                        <button class="kafe-btn kafe-btn-mint-small pull-right btn-sm">Upload</button>
+                        <ul class="nav nav-pills nav-sm">
+                            <li class="nav-item"><a class="nav-link" href=""><i class="fa fa-camera text-muted"></i></a></li>
+                            <li class="nav-item"><a class="nav-link" href=""><i class="fa fa-video text-muted"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--/ container -->
+</section><!--/ newsfeed -->
 
 {% endblock %}
