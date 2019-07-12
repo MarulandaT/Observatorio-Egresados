@@ -11,9 +11,10 @@ from django.views.generic import DetailView, FormView, UpdateView
 from django.contrib.auth.models import User
 from posts.models import Post
 from users.models import Profile, Follower
+from users.models.profile import Subject
 
 # Forms
-from users.forms import SignupForm
+from users.forms import SignupForm, ProfileForm
 
 # Http
 from django.http import HttpResponse
@@ -58,6 +59,7 @@ class UserDetailView(LoginRequiredMixin, DetailView):
         context['posts'] = Post.objects.filter(user=user).order_by('-created')
 
         profile = Profile.objects.get(user=user)
+        context['intereses']= Subject.objects.filter(interested_students = profile)
         context['following'] = Follower.objects.filter(user=self.request.user.profile, account=profile).count() != 0
 
         return context
@@ -78,10 +80,10 @@ class SignupView(FormView):
 
 class UpdateProfileView(LoginRequiredMixin, UpdateView):
     """Update profile view."""
-
-    template_name = 'users/update_profile.html'
     model = Profile
-    fields = ['city', 'interests', 'phone_number', 'picture']
+    form_class = ProfileForm
+    template_name = 'users/update_profile1.html'
+    
 
     def get_object(self):
         """Return user's profile."""

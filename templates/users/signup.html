@@ -13,6 +13,7 @@
       <form method="POST" id="signupform" class="form-signin">
         {% csrf_token %}
         {{ form.as_p }}
+       
         <button class="kafe-btn kafe-btn-mint btn-block" type="submit">Registrarme!</button>
         <a class="btn btn-dark " href="/users/login/" role="button">¿Ya tienes una cuenta? Haga clic aquí.</a>
         <a class="btn btn-dark " href="photo_register.html" role="button">¿Olvidaste tu contraseña?</a>
