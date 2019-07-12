@@ -10,6 +10,13 @@ TYPE_USERS = [
     ('superadmin', 'superadmin')
 ]
 
+class Subject(models.Model):
+    name = models.CharField(max_length=30)
+    
+
+    def __str__(self):
+        return self.name
+
 class Profile(models.Model):
     """Profile model.
 
@@ -40,6 +47,7 @@ class Profile(models.Model):
 
     website = models.URLField(max_length=200, blank=True)
     phone_number = models.CharField(max_length=12, blank=True)
+    interests = models.ManyToManyField(Subject, related_name='interested_students')
 
     picture = models.ImageField(
         upload_to='users/pictures',
@@ -49,7 +57,6 @@ class Profile(models.Model):
 
     city = models.TextField(max_length=20)
     dni_administrador = models.CharField(max_length=20)
-    interests = models.TextField(blank=True)
     age = models.CharField(max_length=2, default=0)
     gender = models.CharField(max_length=4, choices=GENDER_CHOICE, default=UNDEFINED)
     confirmation_handling_sensitive_data = models.BooleanField(default=False)

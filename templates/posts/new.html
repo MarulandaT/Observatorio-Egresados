@@ -43,6 +43,17 @@
                             {% for error in form.photo.errors %}{{ error }}{% endfor %}
                         </div>
                     </div>
+                    {# content field #}
+                    <div class="form-group">
+                        <textarea
+                            class="form-control {% if form.content.errors %}is-invalid{% endif %}"
+                            name="content"
+                        >Escribe aquí el contenido
+                        </textarea>
+                        <div class="invalid-feedback">
+                            {% for error in form.content.errors %}{{ error }}{% endfor %}
+                        </div>
+                    </div>
 
                     <button type="submit" class="btn btn-primary btn-block mt-5">Publicar!</button>
                 </form>

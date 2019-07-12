@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head_content %}
+<title>@{{ request.user.username }} | Update profile</title>
+{% endblock %}
+
+{% block container %}
+
+<div class="container">
+
+    <div class="row justify-content-md-center">
+        <div class="col-6 p-4" id="profile-box">
+
+            <form method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                {% csrf_token %}
+
+               {{ form.as_table }}
+               </div>
+
+                <button type="submit" class="btn btn-primary btn-block mt-5">Actualizar perfil</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

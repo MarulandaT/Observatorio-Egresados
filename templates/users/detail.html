@@ -144,7 +144,10 @@
 		   <div class="col-lg-9">
            <div class="content-box">
 		     <h4>{{ user.username }} <i class="fa fa-check"></i></h4>
-             <p>{{ user.profile.interests }} {{user.profile.age}} años, {{user.profile.city}}.</p>
+             <p> {% for subject in  intereses %}
+                  {{subject.name }} 
+                 {% endfor %}   </p>
+             <p>{{user.profile.age}} años, {{user.profile.city}}.</p>
            </div><!--/ media -->
 		   </div> 
 		   <div class="col-lg-3">

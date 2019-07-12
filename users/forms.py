@@ -6,7 +6,7 @@ from django import forms
 # Models
 from django.contrib.auth.models import User
 from users.models import Profile
-
+from users.models.profile import Subject
 
 class SignupForm(forms.Form):
     """Sign up form."""
@@ -39,7 +39,9 @@ class SignupForm(forms.Form):
         max_length=70,
         widget=forms.EmailInput(attrs={"placeholder":"Correo"})
     )
-
+    
+    
+   
     def clean_username(self):
         """Username must be unique."""
         username = self.cleaned_data['username']
@@ -71,10 +73,16 @@ class SignupForm(forms.Form):
 
 
 
-class ProfileForm(forms.Form):
+class ProfileForm(forms.ModelForm):
     """Profile form."""
-
-    website = forms.URLField(max_length=200, required=True)
-    biography = forms.CharField(max_length=500, required=False)
-    phone_number = forms.CharField(max_length=20, required=False)
-    picture = forms.ImageField()
+    class Meta :
+        model = Profile
+        exclude =  ('username','password','email','last_name','first_name', 'age','gender','dni_administrador','groups','city', 'authorized','type_user','user','confirmation_handling_sensitive_data')
+    interests = forms.ModelMultipleChoiceField( label = 'intereses',      
+        widget=forms.CheckboxSelectMultiple(),
+        queryset=Subject.objects.all()
+    )
+    website = forms.URLField(label = 'Sitio Web',max_length=200, required=True)
+    biography = forms.CharField(label = 'Biografia', max_length=500, required=False)
+    phone_number = forms.CharField(label = 'Telefono',max_length=20, required=False)
+    picture = forms.ImageField(label = 'Foto De Perfil',required=False)
