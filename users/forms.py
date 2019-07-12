@@ -41,7 +41,7 @@ class SignupForm(forms.Form):
     )
     
     
-   
+
     def clean_username(self):
         """Username must be unique."""
         username = self.cleaned_data['username']
@@ -66,9 +66,8 @@ class SignupForm(forms.Form):
         """Create user and profile."""
         data = self.cleaned_data
         data.pop('password_confirmation')
-
         user = User.objects.create_user(**data)
-        profile = Profile(user=user)
+        profile = Profile(user=user)       
         profile.save()
 
 
@@ -77,12 +76,12 @@ class ProfileForm(forms.ModelForm):
     """Profile form."""
     class Meta :
         model = Profile
-        exclude =  ('username','password','email','last_name','first_name', 'age','gender','dni_administrador','groups','city', 'authorized','type_user','user','confirmation_handling_sensitive_data')
+        exclude =  ('username','password','email','last_name','first_name', 'age','gender','website','groups','city', 'authorized','type_user','user','confirmation_handling_sensitive_data')
     interests = forms.ModelMultipleChoiceField( label = 'intereses',      
         widget=forms.CheckboxSelectMultiple(),
         queryset=Subject.objects.all()
     )
-    website = forms.URLField(label = 'Sitio Web',max_length=200, required=True)
     biography = forms.CharField(label = 'Biografia', max_length=500, required=False)
     phone_number = forms.CharField(label = 'Telefono',max_length=20, required=False)
-    picture = forms.ImageField(label = 'Foto De Perfil',required=False)
+    picture = forms.ImageField(label = 'Foto De Perfil',required=True)
+    dni_administrador = forms.CharField(label = 'Cédula',max_length=20, required=True)

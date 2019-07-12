@@ -60,7 +60,7 @@ class Profile(models.Model):
     age = models.CharField(max_length=2, default=0)
     gender = models.CharField(max_length=4, choices=GENDER_CHOICE, default=UNDEFINED)
     confirmation_handling_sensitive_data = models.BooleanField(default=False)
-
+    biography = models.CharField(max_length=50)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
