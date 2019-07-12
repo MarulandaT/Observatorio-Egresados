@@ -10,6 +10,12 @@ TYPE_USERS = [
     ('superadmin', 'superadmin')
 ]
 
+class Subject(models.Model):
+    name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
+
 class Profile(models.Model):
     """Profile model.
 
@@ -57,6 +63,9 @@ class Profile(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
+    interests = models.ManyToManyField(Subject, related_name='interested_students')
+
+
     class Meta:
         verbose_name = 'Perfil'
         verbose_name_plural = 'Perfiles'
@@ -72,3 +81,6 @@ class Profile(models.Model):
     def following(self):
         from users.models import Follower
         return Follower.objects.filter(user=self).count()
+
+
+

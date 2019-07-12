@@ -150,15 +150,15 @@
 		   <div class="col-lg-3">
            {% if user == request.user %}
                         <div class="follow-box">
-		                    <a href="/users/me/profile/" class="kafe-btn kafe-btn-mint"><i class="fa fa-check"></i> Editar perfil</a>
+		                    <a href="/users/me/profile/" class="kafe-btn kafe-btn-mint"><i class="fa fa-edit"></i> Editar perfil</a>
                         </div>
                     {% elif not following %}
                         <div class="follow-box">
-		                    <a href="#" class="kafe-btn kafe-btn-mint" onclick="followUser({{ user.profile.pk }})"><i class="fa fa-check"></i> Seguir</a>
+		                    <a href="#" class="kafe-btn kafe-btn-mint" onclick="followUser({{ user.profile.pk }})"><i class="fa fa-plus"></i> Seguir</a>
                         </div>
                     {% elif following %}
                         <div class="follow-box">
-		                    <a href="#" class="kafe-btn kafe-btn-mint" onclick="unfollowUser({{ user.profile.pk }})"><i class="fa fa-check" ></i> Dejar de Seguir</a>
+		                    <a href="#" class="kafe-btn kafe-btn-mint" onclick="unfollowUser({{ user.profile.pk }})"><i class="fa fa-minus" ></i> Dejar de Seguir</a>
                         </div>
                     {% endif %}
 		   </div>

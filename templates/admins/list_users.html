@@ -5,23 +5,61 @@
 {% endblock %}
 
 {% block container %}
-<div class="container col-12" style="margin-top: 8em;">
+<!--<div class="container col-12" style="margin-top: 8em;">
   <h4>Lista de usuarios activos e inactivos</h4>
   <ul class="list-group">
     {% for profile in pending_users %}
     <li class="list-group-item d-flex justify-content-between align-items-center">
       @{{ profile.user }}
-      <span class="badge badge-danger badge-pill" onclick="authorizeUser({{ profile.pk }})">No autorizado</span>
+      <span class="kafe-btn kafe-btn-mint-small badge-danger badge-pill" onclick="authorizeUser({{ profile.pk }})">No autorizado</span>
     </li>
     {% endfor %}
     {% for profile in authorized_users %}
     <li class="list-group-item d-flex justify-content-between align-items-center">
       @{{ profile.user }}
-      <span class="badge badge-success badge-pill" onclick="deauthorizeUser({{ profile.pk }})">Autorizado</span>
+      <span class="kafe-btn badge badge-success badge-pill" onclick="deauthorizeUser({{ profile.pk }})">Autorizado</span>
     </li>
     {% endfor %}
   </ul>
-</div>
+</div>-->
+
+
+<section class="followers">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2">
+        <h4>Lista de usuarios activos e inactivos</h4>
+        <div class="followers-box full-width">
+          <div class="followers-list">
+            {% for profile in pending_users %}
+            <div class="followers-body">
+              <img class="img-responsive img-circle" src="{{ profile.picture.url }}" alt="">
+              <div class="name-box">
+                <a href="/users/{{ profile.user }}/"><h4>{{ profile.user.first_name }} {{ profile.user.last_name }} <span>@{{ profile.user }}</span></h4></a>
+                <span>{{ profile.user.email }}</span>
+              </div><!--/ name-box -->
+              <span class="kafe-btn kafe-btn-mint-small badge-danger badge-pill" onclick="authorizeUser({{ profile.pk }})">No Autorizado</span>
+            </div><!--/ followers-body -->
+            {% endfor %}
+            {% for profile in authorized_users %}
+            <div class="followers-body">
+              <img class="img-responsive img-circle" src="/media/{{ profile.picture }}" alt="">
+              <div class="name-box">
+                <a href="/users/{{ profile.user }}/"><h4>{{ profile.user.first_name }} {{ profile.user.last_name }} <span>@{{ profile.user }}</span></h4></a>
+                <span>{{ profile.user.email }}</span>
+              </div><!--/ name-box -->
+              <span class="kafe-btn badge badge-success badge-pill" onclick="deauthorizeUser({{ profile.pk }})">Autorizado</span>
+            </div><!--/ followers-body -->
+            {% endfor %}
+          </div><!--suggestions-list end-->
+        </div>
+      </div>
+    </div><!--/ row-->
+  </div><!--/ container -->
+</section><!--/ profile -->
+
+
+
 
 <div class="modal fade" id="modalAuthorizeUser" tabindex="-1" role="dialog" aria-labelledby="modalAuthorizeUserLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">

@@ -54,15 +54,9 @@
     <div class="cardbox-heading">
       <!-- START dropdown-->
       {% if post.profile == request.user.profile or request.user.profile.type_user == 'admin' or request.user.profile.type_user == 'superadmin' %}
-      <div class="dropdown pull-right">
-        <button class="btn btn-secondary btn-flat btn-flat-icon" type="button" data-toggle="dropdown" aria-expanded="false">
-          <em class="fa fa-ellipsis-h"></em>
-        </button>
-        <div class="dropdown-menu dropdown-scale dropdown-menu-right" role="menu" style="position: absolute; transform: translate3d(-136px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
-          <a class="dropdown-item" href="#">Editar</a>
-          <a class="dropdown-item" href="#deletePostModal" data-toggle="modal" role="button" onclick="deletePostModal('{{ post.pk }}')">Eliminar</a>
+      <div class="pull-right">
+          <p class="pr-3"><a href="#" role="button" onclick="deletePostModal('{{ post.pk }}')" style="color:black;"><i class="fas fa-trash "></i></a></p>
         </div>
-      </div><!--/ dropdown -->
       {% endif %}
       <!-- END dropdown-->
       <div class="media m-0">

@@ -6,6 +6,7 @@ from django import forms
 # Models
 from django.contrib.auth.models import User
 from users.models import Profile
+from users.models.profile import Subject
 
 
 class SignupForm(forms.Form):
@@ -40,6 +41,13 @@ class SignupForm(forms.Form):
         widget=forms.EmailInput(attrs={"placeholder":"Correo"})
     )
 
+    interests = forms.ModelMultipleChoiceField(
+       queryset=Subject.objects.all(),
+       widget=forms.CheckboxSelectMultiple,
+       required=False
+    )
+
+
     def clean_username(self):
         """Username must be unique."""
         username = self.cleaned_data['username']
@@ -66,8 +74,11 @@ class SignupForm(forms.Form):
         data.pop('password_confirmation')
 
         user = User.objects.create_user(**data)
+        profile.interests.add(*self.cleaned_data.get('interests'))
         profile = Profile(user=user)
         profile.save()
+        
+
 
 
 

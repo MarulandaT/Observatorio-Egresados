@@ -112,33 +112,33 @@
      =============================================== -->
 <section class="nav-sec">
     <div class="d-flex justify-content-between">
-        <div class="p-2 nav-icon-lg mint-green">
+        <div class="p-2 nav-icon-lg {% if request.path == '/'%} mint-green {% else %} dark-black {% endif %} ">
             <a class="nav-icon" href="/"><em class="fa fa-home"></em>
                 <span>Inicio</span>
             </a>
         </div>
         {% if request.user.profile.type_user == 'admin' or request.user.profile.type_user == 'superadmin' %}
-        <div class="p-2 nav-icon-lg clean-black">
+        <div class="p-2 nav-icon-lg {% if request.path == '/posts/new/'%} mint-green {% else %} clean-black {% endif %}">
             <a class="nav-icon" href="/posts/new/"><em class="fa fa-plus"></em>
                 <span>Nueva Noticia</span>
             </a>
         </div>
         {% endif %}
         {% if request.user.profile.type_user == 'admin' or request.user.profile.type_user == 'superadmin' %}
-        <div class="p-2 nav-icon-lg dark-black">
-            <a class="nav-icon" href="/users/admins/list/"><em class="fas fa-user-shield"></em>
+        <div class="p-2 nav-icon-lg {% if request.path == '/users/admins/list/'%} mint-green {% else %} dark-black {% endif %}">
+            <a class="nav-icon" href="/users/admins/list/"><em class="fas fa-check"></em>
                 <span>Verificar Usuarios</span>
             </a>
         </div>
         {% endif %}
         {% if request.user.profile.type_user == 'superadmin' %}
-        <div class="p-2 nav-icon-lg clean-black">
-            <a class="nav-icon" href="/users/superuser/list/"><em class="fas fa-users-cog"></em>
+        <div class="p-2 nav-icon-lg {% if request.path == '/users/superuser/list/'%} mint-green {% else %} clean-black {% endif %}">
+            <a class="nav-icon" href="/users/superuser/list/"><em class="fas fa-users"></em>
                 <span>Administradores</span>
             </a>
         </div>
         {% endif %}
-        <div class="p-2 nav-icon-lg dark-black">
+        <div class="p-2 nav-icon-lg dark-black ">
             <a class="nav-icon" href="/users/{{ request.user.username }}/"><em class="fa fa-user"></em>
                 <span>Perfil</span>
             </a>
