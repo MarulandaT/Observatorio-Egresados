@@ -6,7 +6,7 @@
 
 {% block container %}
 
-    <div class="container mb-5" style="margin-top: 8em;">
+  <!--  <div class="container mb-5" style="margin-top: 8em;">
         <div class="row">
 
             <div class="col-sm-4 d-flex justify-content-center">
@@ -90,7 +90,140 @@
     <form method="post" hidden>{% csrf_token %}
       <input type="text" id="unfollow-user-id" name="id_user">
       <input type="submit" name="unfollow_user">
+    </form>-->
+
+	 <!-- ==============================================
+	 News Feed Section
+	 =============================================== --> 
+	 <section class="profile">
+	  <div class="container-fluid">
+	   <div class="row">
+	   <div class="col-lg-12">
+
+		 <div class="profilebox-large hidden-xs hidden-sm" style="background: linear-gradient( rgba(34,34,34,0.45), rgba(34,34,34,0.45)), url('{{ user.profile.picture.url }}') no-repeat;
+		          background-size: cover;
+                  background-position: center center;
+                  -webkit-background-size: cover;
+                  -moz-background-size: cover;
+                  -o-background-size: cover;">		  
+		 </div>
+	   </div>
+       </div><!--/ row-->	
+	  </div><!--/ container -->
+	 </section><!--/ profile -->
+
+
+	 <!-- ==============================================
+	 User Profile Section
+	 =============================================== --> 
+	 <section class="user-profile">
+	  <div class="container-fluid">
+	   <div class="row">
+	   
+	    <div class="col-lg-12">
+		   <div class="post-content">
+		    <div class="author-post text-center">
+		     <a href="#"><img class="img-fluid img-circle" src="{{ user.profile.picture.url }}" alt="@{{ user.username }}"></a>
+		    </div><!-- /author -->
+		   </div><!-- /.post-content -->		
+		</div><!-- /col-sm-12 -->
+		
+       </div><!--/ row-->	
+	  </div><!--/ container -->
+	 </section><!--/ profile -->
+  
+	 <!-- ==============================================
+	 User Profile Section
+	 =============================================== --> 
+	 <section class="details">
+	  <div class="container">
+	   <div class="row">
+	    <div class="col-lg-12">
+		 
+          <div class="details-box row">
+		   <div class="col-lg-9">
+           <div class="content-box">
+		     <h4>{{ user.username }} <i class="fa fa-check"></i></h4>
+             <p> {% for subject in  intereses %}
+                  {{subject.name }}, 
+                 {% endfor %}   </p>
+                 <p> {{user.profile.biography}}</p>
+           </div><!--/ media -->
+		   </div> 
+		   <div class="col-lg-3">
+           {% if user == request.user %}
+                        <div class="follow-box">
+		                    <a href="/users/me/profile/" class="kafe-btn kafe-btn-mint"><i class="fa fa-edit"></i> Editar perfil</a>
+                        </div>
+                    {% elif not following %}
+                        <div class="follow-box">
+		                    <a href="#" class="kafe-btn kafe-btn-mint" onclick="followUser({{ user.profile.pk }})"><i class="fa fa-plus"></i> Seguir</a>
+                        </div>
+                    {% elif following %}
+                        <div class="follow-box">
+		                    <a href="#" class="kafe-btn kafe-btn-mint" onclick="unfollowUser({{ user.profile.pk }})"><i class="fa fa-minus" ></i> Dejar de Seguir</a>
+                        </div>
+                    {% endif %}
+		   </div>
+          </div><!--/ details-box -->
+		  
+		</div>
+	   </div>
+	  </div><!--/ container -->
+	 </section><!--/ profile -->
+
+	 <!-- ==============================================
+	 Home Menu Section
+	 =============================================== -->	
+     <section class="home-menu">
+      <div class="container">
+       <div class="row">
+
+        <div class="menu-category">
+         <ul class="menu">
+          <li class="current-menu-item"><a href="#">Publicaciones <span>{{ posts.count }}</span></a></li>
+          <li><a href="#">Seguidores <span>{{ user.profile.followers }}</span></a></li>
+          <li><a href="#">Siguiendo <span>{{ user.profile.following }}</span></a></li>
+         </ul>
+		</div>
+		
+	   </div><!--/row -->
+      </div><!--/container -->
+     </section><!--/home-menu -->	
+
+	 <!-- ==============================================
+	 News Feed Section
+	 =============================================== --> 
+	 <section class="newsfeed">
+	  <div class="container">
+	  
+	   <div class="row">
+	   {% for post in posts %}
+	    <div class="col-lg-4">
+		 <a href="/posts/{{ post.pk }}/" >
+		 <div class="explorebox" style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('{{ post.photo.url }}') no-repeat;
+		          background-size: cover;
+                  background-position: center center;
+                  -webkit-background-size: cover;
+                  -moz-background-size: cover;
+                  -o-background-size: cover;">
+		  <div class="explore-top">
+		   <div class="explore-like"><i class="fa fa-heart"></i> <span>{{ post.likes }}</span></div>
+		   <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
+          </div>		  
+		 </div>
+		 </a>
+		</div><!--/ col-lg-4 -->
+        {% endfor %}
+		 <form method="post" hidden>{% csrf_token %}
+      <input type="text" id="follow-user-id" name="id_user">
+      <input type="submit" name="follow_user">
     </form>
+    <form method="post" hidden>{% csrf_token %}
+      <input type="text" id="unfollow-user-id" name="id_user">
+      <input type="submit" name="unfollow_user">
+    </form> 
+
 {% endblock %}
 
 {% block scripts %}

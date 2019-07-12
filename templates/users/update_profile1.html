@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head_content %}
+<title>@{{ request.user.username }} | Update profile</title>
+{% endblock %}
+
+{% block container %}
+
+<section class="upload">
+      <div class="container">
+      
+       <div class="row">
+        <div class="col-lg-12">  
+        
+         <div class="box center">
+
+            <form method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                {% csrf_token %}
+
+               {{ form}}
+               </div>
+
+                <button type="submit" class=" kafe-btn kafe-btn-mint-small btn-block mt-5">Actualizar perfil</button>
+            </form>
+       </div>
+        </div>
+        
+       </div><!--/ row-->   
+      
+       
+      </div><!--/ container -->
+    </section><!--/ newsfeed -->
+
+
+
+{% endblock %}

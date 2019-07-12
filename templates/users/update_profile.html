@@ -19,7 +19,7 @@
                     {% if profile.picture %}
                         <img src="{{ profile.picture.url }}" class="rounded-circle" height="50" />
                     {% else%}
-                        <img src="{% static 'img/default-profile.png' %}" class="rounded-circle" height="50" />
+                        <img src="{% static 'img/users/user-default.png' %}" class="rounded-circle" height="50" />
                     {% endif %}
 
                     <div class="media-body">
@@ -90,5 +90,10 @@
         </div>
     </div>
 </div>
+
+
+
+
+
 
 {% endblock %}

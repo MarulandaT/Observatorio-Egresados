@@ -1,5 +1,5 @@
 {% load static %}
-<nav class="navbar navbar-expand-lg fixed-top" id="main-navbar">
+<!-- <nav class="navbar navbar-expand-lg fixed-top" id="main-navbar">
     <div class="container">
 
         <a class="navbar-brand pr-5" style="border-right: 1px solid #efefef;" href="/">
@@ -50,4 +50,122 @@
             </ul>
         </div>
     </div>
-</nav>
+</nav>-->
+
+
+<header class="tr-header">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/"><i class="fas fa-graduation-cap"></i> Egresados</a>
+            </div><!-- /.navbar-header -->
+        <div class="navbar-left">
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav"></ul>
+            </div>
+        </div><!-- /.navbar-left -->
+        <div class="navbar-right">                          
+            <ul class="nav navbar-nav">
+                <li class="dropdown mega-avatar">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                        <span class="avatar w-32">
+                            {% if request.user.profile.picture %}
+                                <img src="{{ request.user.profile.picture.url }}" class="img-resonsive img-circle" width="25" height="25" alt="...">
+                            {% else%}
+                                 <img src="{% static 'img/default-profile.png' %}" class="img-resonsive img-circle" width="25" height="25" alt="...">
+                            {% endif %}
+                        </span>
+                        <span class="hidden-xs">
+                            {{ request.user.username }}
+                        </span>
+                    </a>
+                    <div class="dropdown-menu w dropdown-menu-scale pull-right">
+                        <a class="dropdown-item" href="/users/{{ request.user.username }}/"><span>Perfil</span></a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/users/logout/">Salir</a>
+                    </div>
+                </li><!-- /navbar-item --> 
+            </ul><!-- /.sign-in -->
+        </div><!-- /.nav-right -->
+    </div><!-- /.container -->
+</nav><!-- /.navbar -->
+</header><!-- Page Header --> 
+  
+  <!-- ==============================================
+     Navbar Second Section
+     =============================================== -->
+<section class="nav-sec">
+    <div class="d-flex justify-content-between">
+        <div class="p-2 nav-icon-lg {% if request.path == '/'%} mint-green {% else %} dark-black {% endif %} ">
+            <a class="nav-icon" href="/"><em class="fa fa-home"></em>
+                <span>Inicio</span>
+            </a>
+        </div>
+        {% if request.user.profile.type_user == 'admin' or request.user.profile.type_user == 'superadmin' %}
+        <div class="p-2 nav-icon-lg {% if request.path == '/posts/new/'%} mint-green {% else %} clean-black {% endif %}">
+            <a class="nav-icon" href="/posts/new/"><em class="fa fa-plus"></em>
+                <span>Nueva Noticia</span>
+            </a>
+        </div>
+        {% endif %}
+        {% if request.user.profile.type_user == 'admin' or request.user.profile.type_user == 'superadmin' %}
+        <div class="p-2 nav-icon-lg {% if request.path == '/users/admins/list/'%} mint-green {% else %} dark-black {% endif %}">
+            <a class="nav-icon" href="/users/admins/list/"><em class="fas fa-check"></em>
+                <span>Verificar Usuarios</span>
+            </a>
+        </div>
+        {% endif %}
+        {% if request.user.profile.type_user == 'superadmin' %}
+        <div class="p-2 nav-icon-lg {% if request.path == '/users/superuser/list/'%} mint-green {% else %} clean-black {% endif %}">
+            <a class="nav-icon" href="/users/superuser/list/"><em class="fas fa-users"></em>
+                <span>Administradores</span>
+            </a>
+        </div>
+        {% endif %}
+        {% if request.user.profile.type_user == 'egresado'  %}
+        <div class="p-2 nav-icon-lg {% if request.path == '/users/me/profile/'%} mint-green {% else %} dark-black {% endif %}">
+            <a class="nav-icon" href="/users/me/profile/"><em class="fas fa-edit"></em>
+                <span>Editar Perfil</span>
+            </a>
+        </div>
+        {% endif %}
+        {% if request.user.profile.type_user == 'egresado'  %}
+        <div class="p-2 nav-icon-lg   clean-black ">
+            <a class="nav-icon" href="#"><em class="fas fa-graduation-cap "></em>
+                <span>Egresados</span>
+            </a>
+        </div>
+        {% endif %}
+        {% if request.user.profile.type_user == 'egresado' or request.user.profile.type_user == 'admin'  %}
+        <div class="p-2 nav-icon-lg {% if request.path == '/users/...'%} mint-green {% else %} dark-black {% endif %}">
+            <a class="nav-icon" href="/users/{{ request.user.username }}/"><em class="fa fa-user"></em>
+                <span>Perfil</span>
+            </a>
+        </div>
+        {% endif %}
+        {% if request.user.profile.type_user == 'egresado' or request.user.profile.type_user == 'admin'  %}
+        <div class="p-2 nav-icon-lg {% if request.path == '/users/logout/'%} mint-green {% else %} dark-black {% endif %}">
+            <a class="nav-icon" href="/users/logout/"><em class="fas fa-sign-out-alt"></em>
+                <span>Salir</span>
+            </a>
+        </div>
+        {% endif %}
+        {% if  request.user.profile.type_user == 'superadmin' %}
+        <div class="p-2 nav-icon-lg {% if request.path == '/users/me/profile/'%} mint-green {% else %} dark-black {% endif %}">
+            <a class="nav-icon" href="/users/{{ request.user.username }}/"><em class="fa fa-user"></em>
+                <span>Perfil</span>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>  
+
+    {% block scripts %}
+    
+    {% endblock %}
